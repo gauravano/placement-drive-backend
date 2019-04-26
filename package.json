@@ -1,0 +1,23 @@
+{
+  "name": "placement-drive-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gauravano/placement-drive-backend.git"
+  },
+  "author": "Gaurav Sachdeva",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gauravano/placement-drive-backend/issues"
+  },
+  "homepage": "https://github.com/gauravano/placement-drive-backend#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.5.4"
+  }
+}
