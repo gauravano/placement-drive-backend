@@ -1,11 +1,8 @@
-const express = require('express');
-const app = express();
+const http = require('http');
+const app = require('./app');
 
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+const port = process.env.PORT || 4000;
 
-app.set('port', (process.env.PORT || 4000));
+const server = http.createServer(app);
 
-app.listen(app.get('port'), function () {
-   console.log("Node app is running at Port: ", app.get('port'));
-});
+server.listen(port);
