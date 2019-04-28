@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Company = require('../models/company');
-
-module.exports = router;
+const Registration = require('../models/registration');
 
 router.get("/:companyName", (req, res, next) => {
     Company.findOne({name: {'$regex': req.params.companyName,$options:'i'}})
@@ -49,36 +48,36 @@ router.post("/", (req, res, next) => {
       });
 });
 
-// router.put("/:rollno", (req, res, next) => {
-    
-//     const rollno = req.params.rollno;
-    
-//     Student.findOneAndUpdate({ rollno },
-//         req.body,
-//         { new: true },
-//         (err, student) => {
-//         if (err) {
-//           res.status(400).json({
-//             error: err
-//           });
-//         }
-//         res.json(student);
-//       });
-// });
-
 router.delete("/:name", (req, res, next) => {
-    Company.remove({ name: req.params.name })
-      .exec()
-      .then(result => {
-        res.status(200).json({
-          message: "Company unregistered for the drive!"
-        });
-      })
-      .catch(err => {
-        res.status(500).json({
-          error: err
-        });
-      });
+    const companyName = req.params.name;
+    Company.findOneAndDelete({ name: {'$regex': companyName,$options:'i'}}, (err, deletedCompany) => {
+        if(err){
+                res.status(400).json({
+                error: err
+            });
+        }else if(deletedCompany == null){
+            res.status(404).json({
+                error: `Company by name ${companyName} not found!`
+            })
+        }else{
+            Registration.find({companyName: {'$regex': companyName,$options:'i'}}).exec().then(entries => {
+                entries.map(entry => {
+                    Registration.deleteMany({companyName: {'$regex': companyName,$options:'i'}}, (err, result) => {
+                        if(err){
+                            res.status(400).json({
+                                error: err
+                            })
+                        }else{            
+                            res.status(200).json({        
+                                message: "Company successfully unregistered and related registrations also deleted!",
+                                deletedCompany: deletedCompany
+                            })
+                        }
+                    })
+                })
+            })
+        }
+    });
   });
-
+ 
 module.exports = router;
