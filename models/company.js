@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 
 const companySchema = new mongoose.Schema({
-    _id: mongoose.Types.ObjectId,
-    name: String,
-    department: String,
-    rollno: Number,
-    cgpa: Number
+    name: {
+        type: String,
+        unique: true    
+    },
+    description: String,
+    numVacancies: Number
 });
 
 module.exports = mongoose.model('Company', companySchema);
