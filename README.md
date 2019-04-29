@@ -1,8 +1,9 @@
 ## Placement drive server app
 A simple server application, that can be used for registering students and companies for a placement event in an institute.
 
-API documentation: https://gauravano.github.io/placement-drive-backend/apidoc/index.html
-API server hosted at Glitch: https://gauravano-placement-drive-backend.glitch.me/api/
+**API documentation:** https://gauravano.github.io/placement-drive-backend/apidoc/index.html
+
+**API server hosted at Glitch:** https://gauravano-placement-drive-backend.glitch.me/api/
 
 ## Installation
 
