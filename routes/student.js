@@ -7,6 +7,16 @@ const Student = require('../models/student');
 const Registration = require('../models/registration');
 const Company = require('../models/company');
 
+/**
+ * @api {get} /api/student/:rollno Request Student information
+ * @apiName GetStudent
+ * @apiGroup Student
+ *
+ * @apiParam {Number} rollno Student's unique roll number.
+ *
+ * @apiSuccess {Object} student Information of the student.
+ */
+
 router.get("/:rollno", [
   check('rollno').exists().isInt()
 ] ,(req, res, next) => {
@@ -36,6 +46,19 @@ router.get("/:rollno", [
         });
       });
   });
+
+/**
+ * @api {post} /api/student/ Add a Student
+ * @apiName PostStudent
+ * @apiGroup Student
+ *
+ * @apiParam {Number} rollno Roll number of the student.
+ * @apiParam {String} name Name of the student.
+ * @apiParam {Department} department Department of the student.
+ * @apiParam {Number} cgpa CGPA of the student.
+ *
+ * @apiSuccess {Object} createdStudent Information of the created Student.  */
+
 
 router.post("/", [
   check('rollno').exists().isInt(),
@@ -80,6 +103,16 @@ router.post("/", [
         });
       });
   });
+
+  /**
+ * @api {post} /api/student/register Register a Student for placement drive
+ * @apiName RegisterStudent
+ * @apiGroup Student
+ *
+ * @apiParam {Number} rollno Roll number of the student.
+ * @apiParam {String} companyName Name of the company.
+ *
+ * @apiSuccess {Object} createdEntry Information of the created entry.  */
 
   router.post("/register", [
     check('rollno').exists().isInt(), 
@@ -160,6 +193,16 @@ router.post("/", [
    });
   });
 
+    /**
+ * @api {post} /api/student/unregister Unregister a Student for placement drive
+ * @apiName UnregisterStudent
+ * @apiGroup Student
+ *
+ * @apiParam {Number} rollno Roll number of the student.
+ * @apiParam {String} companyName Name of the company.
+ *
+ * @apiSuccess {Object} deletedEntry Information of the deleted entry.  */
+
   router.delete("/unregister", [
     check('rollno').exists().isInt(), 
     check('companyName').exists().isString().trim()
@@ -224,6 +267,14 @@ router.post("/", [
    });
   });
 
+ /**
+ * @api {put} /api/student/:rollno Edit a student record
+ * @apiName UpdateStudent
+ * @apiGroup Student
+ *
+ * @apiParam {Number} rollno Roll number of the student.
+ *
+ * @apiSuccess {Object} updatedRecord Information of the updated student record.  */
 
 router.put("/:rollno", [
   check('rollno').exists().isInt(),
@@ -256,12 +307,21 @@ router.put("/:rollno", [
         }else{
           logger.verbose("Student record successfully updated", student);
           res.status(200).json({
-            message: "Student record successfully updated!"
+            message: "Student record successfully updated!",
+            upodatedRecord: student
           });
         }
       });
 });
 
+  /**
+ * @api {delete} /api/student/:rollno Delete a Student from records
+ * @apiName DeleteStudent
+ * @apiGroup Student
+ *
+ * @apiParam {Number} rollno Roll number of the student.
+ *
+ * @apiSuccess {Object} deletedEntry Information of the deleted student record.  */
 router.delete("/:rollno",[
   check('rollno').exists().isInt(),
   check('rollno').custom(value => {
@@ -285,7 +345,8 @@ router.delete("/:rollno",[
       .then(result => {
         logger.verbose("Student deleted successfully", result);
         res.status(200).json({
-          message: "Student deleted successfully!"
+          message: "Student deleted successfully!",
+          deletedEntry: result
         });
       })
       .catch(err => {

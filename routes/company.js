@@ -6,6 +6,15 @@ var logger = require('../logger');
 const Company = require('../models/company');
 const Registration = require('../models/registration');
 
+ /**
+ * @api {get} /api/company/:companyName Get information about a company
+ * @apiName ShowCompany
+ * @apiGroup Company
+ *
+ * @apiParam {String} companyName Name of the company.
+ *
+ * @apiSuccess {Object} company Information of the company.  */
+
 router.get("/:companyName", [
     check('companyName').exists().isString()
 ] ,(req, res, next) => {
@@ -24,9 +33,9 @@ router.get("/:companyName", [
             message: "Company not found"
           });
         }
-        logger.verbose("Company created successfully", company);
+        logger.verbose("Company information fetched: ", company);
         res.status(200).json({
-          message: "Company created successfully!",  
+          message: "Company information fetched!",  
           company: company
         });
       })
@@ -38,6 +47,17 @@ router.get("/:companyName", [
       });
   });
 
+
+ /**
+ * @api {post} /api/company/ Register a company for placement drive
+ * @apiName RegisterCompany
+ * @apiGroup Company
+ *
+ * @apiParam {String} name Unique name of the company.
+ * @apiParam {String} description Description of the company.
+ * @apiParam {Number} numVacancies Number of vacancies. Default is 1.
+ *
+ * @apiSuccess {Object} createdCompany Information of the added company.  */
 router.post("/", [
     check('name').exists().isString().trim(),
     check('name').custom(value => {
@@ -81,6 +101,14 @@ router.post("/", [
       });
 });
 
+/**
+ * @api {delete} /api/company/:name Unregister a company from placement drive
+ * @apiName UnregisterCompany
+ * @apiGroup Company
+ *
+ * @apiParam {String} name Unique name of the company.
+ *
+ * @apiSuccess {Object} deletedCompany Information of the deleted company.  */
 router.delete("/:name", [
     check('name').exists().isString().trim()
 ] ,(req, res, next) => {

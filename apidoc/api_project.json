@@ -1,0 +1,14 @@
+{
+  "name": "Placement drive REST API",
+  "version": "1.0.0",
+  "description": "",
+  "sampleUrl": false,
+  "defaultVersion": "0.0.0",
+  "apidoc": "0.3.0",
+  "generator": {
+    "name": "apidoc",
+    "time": "2019-04-29T13:26:50.366Z",
+    "url": "https://gauravano-placement-drive-backend.glitch.me/",
+    "version": "0.17.7"
+  }
+}
