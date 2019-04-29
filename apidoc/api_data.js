@@ -5,6 +5,11 @@ define({ "api": [
     "title": "Register a company for placement drive",
     "name": "RegisterCompany",
     "group": "Company",
+    "sampleRequest": [
+      {
+        "url": "https://gauravano-placement-drive-backend.glitch.me/api/company"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -55,6 +60,11 @@ define({ "api": [
     "title": "Get information about a company",
     "name": "ShowCompany",
     "group": "Company",
+    "sampleRequest": [
+      {
+        "url": "https://gauravano-placement-drive-backend.glitch.me/api/company/:companyName"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -91,6 +101,11 @@ define({ "api": [
     "title": "Unregister a company from placement drive",
     "name": "UnregisterCompany",
     "group": "Company",
+    "sampleRequest": [
+      {
+        "url": "https://gauravano-placement-drive-backend.glitch.me/api/company/:name"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -127,6 +142,11 @@ define({ "api": [
     "title": "Delete a Student from records",
     "name": "DeleteStudent",
     "group": "Student",
+    "sampleRequest": [
+      {
+        "url": "https://gauravano-placement-drive-backend.glitch.me/api/student/:rollno"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -375,7 +395,7 @@ define({ "api": [
             "type": "Number",
             "optional": false,
             "field": "rollno",
-            "description": "<p>Roll number of the student.</p>"
+            "description": "<p>Roll number of the student. Roll number can't be updated</p>"
           },
           {
             "group": "Parameter",
@@ -396,7 +416,7 @@ define({ "api": [
             "type": "Number",
             "optional": false,
             "field": "cgpa",
-            "description": "<p>Updated CGPA of the student</p>"
+            "description": "<p>Updated CGPA of the</p>"
           }
         ]
       }
