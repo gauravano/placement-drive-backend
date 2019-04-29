@@ -11,7 +11,7 @@ A simple server application, that can be used for registering students and compa
 2. Enter the placement-drive-backend directory with `cd placement-drive-backend`.
 3. Run `npm install` to install the node dependencies mentioned in the package.json.
 4. Run `npm start` for running the development server. Navigate to `http://localhost:4000/`.
-5. The database is hosted at Mongo Lab, so you need to create a free sandbox at https://mlab.com/ and then copy the URI from there and save it as `MONGO_URO: <URI from your sandbox without quotes>` in .env file.
+5. The database is hosted at Mongo Lab, so you need to create a free sandbox at https://mlab.com/ and then copy the URI from there and save it as `MONGO_URI: <URI from your sandbox without quotes>` in .env file.
 
 ## Development server
 
