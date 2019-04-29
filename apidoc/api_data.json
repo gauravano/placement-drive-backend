@@ -329,7 +329,7 @@
     "groupTitle": "Student"
   },
   {
-    "type": "post",
+    "type": "delete",
     "url": "/api/student/unregister",
     "title": "Unregister a Student for placement drive",
     "name": "UnregisterStudent",
