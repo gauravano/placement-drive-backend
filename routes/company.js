@@ -91,7 +91,7 @@ router.post("/", [
     company
       .save()
       .then(result => {
-        logger.verbose("Comopany registered successfully", result);
+        logger.verbose("Company registered successfully", result);
         res.status(201).json({
           message: "Company registered for the placement drive!",
           createdCompany: result
@@ -123,6 +123,7 @@ router.delete("/:name", [
       return res.status(400).json({ errors: errors.array() });
     }
     const companyName = req.params.name;
+    console.log("nameme",companyName);
     Company.findOneAndDelete({ name: {'$regex': companyName,$options:'i'}}, (err, deletedCompany) => {
         if(err){
                 logger.error("Bad request", err);
@@ -135,6 +136,7 @@ router.delete("/:name", [
                 error: `Company by name ${companyName} not found!`
             })
         }else{
+            console.log("registrants dele");
             Registration.find({companyName: {'$regex': companyName,$options:'i'}}).exec().then(entries => {
                 entries.map(entry => {
                     Registration.deleteMany({companyName: {'$regex': companyName,$options:'i'}}, (err, result) => {
@@ -143,15 +145,14 @@ router.delete("/:name", [
                             res.status(400).json({
                                 error: err
                             })
-                        }else{            
-                            logger.verbose("Company successfully deleted", deletedCompany);
-                            res.status(200).json({        
-                                message: "Company successfully unregistered and related registrations also deleted!",
-                                deletedCompany: deletedCompany
-                            })
-                        }
+                        }               
                     })
                 })
+                    logger.verbose("Company successfully deleted", deletedCompany);
+                    res.status(200).json({        
+                        message: "Company successfully unregistered and related registrations also deleted!",
+                        deletedCompany: deletedCompany
+                    })
             })
         }
     });
