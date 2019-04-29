@@ -199,7 +199,7 @@ router.post("/", [
   });
 
     /**
- * @api {post} /api/student/unregister Unregister a Student for placement drive
+ * @api {delete} /api/student/unregister Unregister a Student for placement drive
  * @apiName UnregisterStudent
  * @apiGroup Student
  * 
