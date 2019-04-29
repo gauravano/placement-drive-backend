@@ -1,10 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const { check, validationResult } = require('express-validator/check');
 
 const Company = require('../models/company');
 const Registration = require('../models/registration');
 
-router.get("/:companyName", (req, res, next) => {
+router.get("/:companyName", [
+    check('companyName').exists().isString()
+] ,(req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     Company.findOne({name: {'$regex': req.params.companyName,$options:'i'}})
       .exec()
       .then(company => {
@@ -24,7 +32,24 @@ router.get("/:companyName", (req, res, next) => {
       });
   });
 
-router.post("/", (req, res, next) => {
+router.post("/", [
+    check('name').exists().isString().trim(),
+    check('name').custom(value => {
+      return Company.findOne({name: {'$regex': value,$options:'i'}}).then(company => {
+        if (company) {
+          return Promise.reject('Company with same name already exists!');
+        }
+      });
+    }),
+    check('numVacancies').optional().isInt(),
+    check('description').optional().isString().trim()
+  ],(req, res, next) => {
+    
+    // Finds the validation errors in this request and wraps them in an object with handy functions
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
     const company = new Company({
       name: req.body.name,
@@ -48,7 +73,13 @@ router.post("/", (req, res, next) => {
       });
 });
 
-router.delete("/:name", (req, res, next) => {
+router.delete("/:name", [
+    check('name').exists().isString().trim()
+] ,(req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const companyName = req.params.name;
     Company.findOneAndDelete({ name: {'$regex': companyName,$options:'i'}}, (err, deletedCompany) => {
         if(err){
