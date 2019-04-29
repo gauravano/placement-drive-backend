@@ -3,6 +3,18 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
 const winston = require('winston');
 
+const transports = {
+  console: new winston.transports.Console({ level: 'warn' }),
+  file: new winston.transports.File({ filename: 'combined.log', level: 'error' })
+};
+
+const logger = winston.createLogger({
+  transports: [
+    transports.console,
+    transports.file
+  ]
+});
+
 const Student = require('../models/student');
 const Registration = require('../models/registration');
 const Company = require('../models/company');
@@ -12,7 +24,7 @@ router.get("/:rollno", [
 ] ,(req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      winston.error("Bad request", errors.array());
+      logger.error("Bad request", errors.array());
       return res.status(400).json({ errors: errors.array() });
     }
   

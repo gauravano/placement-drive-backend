@@ -15,6 +15,8 @@ mongoose.connect(
   }
 );
 
+mongoose.set('useCreateIndex', true);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(expressValidator())
