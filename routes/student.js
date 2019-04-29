@@ -354,7 +354,7 @@ router.delete("/:rollno",[
     }  
     const rollno = req.params.rollno;
       
-    Student.remove({ rollno: req.params.rollno })
+    Student.findOneAndDelete({ rollno: req.params.rollno })
       .exec()
       .then(result => {
         logger.verbose("Student deleted successfully", result);
