@@ -140,7 +140,7 @@ router.post("/", [
               error: err
             });
           }else if(student != null){
-            Company.findOne({name: companyName}, (err, company) => {
+            Company.findOne({name: {'$regex': companyName,$options:'i'}}, (err, company) => {
                 
                 if(err){
                     logger.error("Bad request", err);
@@ -148,7 +148,7 @@ router.post("/", [
                         error: err
                     });
                 }else if(company != null){
-                    Registration.findOne({companyName: companyName, rollno: rollno}, (err, entry) => {
+                    Registration.findOne({companyName: {'$regex': companyName,$options:'i'}, rollno: rollno}, (err, entry) => {
                         if(err){
                             logger.error("Bad request", err);
                             res.status(400).json({
@@ -231,14 +231,14 @@ router.post("/", [
               error: err
             });
           }else if(student != null){
-            Company.findOne({name: companyName}, (err, company) => {
+            Company.findOne({name: {'$regex': companyName,$options:'i'}}, (err, company) => {
                 if(err){
                     logger.error("Bad request", err);
                     res.status(400).json({
                         error: err
                     });
                 }else if(company != null){
-                    Registration.findOneAndDelete({companyName: companyName, rollno: rollno}, (err, entry) => {
+                    Registration.findOneAndDelete({companyName: {'$regex': companyName,$options:'i'}, rollno: rollno}, (err, entry) => {
                         if(err){
                             logger.error("Bad request", err);
                             res.status(400).json({
