@@ -11,6 +11,8 @@ const Registration = require('../models/registration');
  * @apiName ShowCompany
  * @apiGroup Company
  *
+ * @apiSampleRequest https://gauravano-placement-drive-backend.glitch.me/api/company/:companyName
+ * 
  * @apiParam {String} companyName Name of the company.
  *
  * @apiSuccess {Object} company Information of the company.  */
@@ -53,6 +55,8 @@ router.get("/:companyName", [
  * @apiName RegisterCompany
  * @apiGroup Company
  *
+ * @apiSampleRequest https://gauravano-placement-drive-backend.glitch.me/api/company
+ * 
  * @apiParam {String} name Unique name of the company.
  * @apiParam {String} description Description of the company.
  * @apiParam {Number} numVacancies Number of vacancies. Default is 1.
@@ -106,6 +110,7 @@ router.post("/", [
  * @apiName UnregisterCompany
  * @apiGroup Company
  *
+ * @apiSampleRequest https://gauravano-placement-drive-backend.glitch.me/api/company/:name
  * @apiParam {String} name Unique name of the company.
  *
  * @apiSuccess {Object} deletedCompany Information of the deleted company.  */

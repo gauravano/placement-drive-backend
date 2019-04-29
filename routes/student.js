@@ -9,6 +9,7 @@ const Company = require('../models/company');
 
 /**
  * @api {get} /api/student/:rollno Request Student information
+ * @apiSampleRequest https://gauravano-placement-drive-backend.glitch.me/api/student/:rollno
  * @apiName GetStudent
  * @apiGroup Student
  *
@@ -51,6 +52,8 @@ router.get("/:rollno", [
  * @api {post} /api/student/ Add a Student
  * @apiName PostStudent
  * @apiGroup Student
+ * 
+ * @apiSampleRequest https://gauravano-placement-drive-backend.glitch.me/api/student/
  *
  * @apiParam {Number} rollno Roll number of the student.
  * @apiParam {String} name Name of the student.
@@ -108,6 +111,8 @@ router.post("/", [
  * @api {post} /api/student/register Register a Student for placement drive
  * @apiName RegisterStudent
  * @apiGroup Student
+ * 
+ * @apiSampleRequest https://gauravano-placement-drive-backend.glitch.me/api/student/register
  *
  * @apiParam {Number} rollno Roll number of the student.
  * @apiParam {String} companyName Name of the company.
@@ -197,6 +202,8 @@ router.post("/", [
  * @api {post} /api/student/unregister Unregister a Student for placement drive
  * @apiName UnregisterStudent
  * @apiGroup Student
+ * 
+ * @apiSampleRequest https://gauravano-placement-drive-backend.glitch.me/api/student/unregister
  *
  * @apiParam {Number} rollno Roll number of the student.
  * @apiParam {String} companyName Name of the company.
@@ -271,8 +278,13 @@ router.post("/", [
  * @api {put} /api/student/:rollno Edit a student record
  * @apiName UpdateStudent
  * @apiGroup Student
+ * 
+ * @apiSampleRequest https://gauravano-placement-drive-backend.glitch.me/api/student/:rollno
  *
- * @apiParam {Number} rollno Roll number of the student.
+ * @apiParam {Number} rollno Roll number of the student. Roll number can't be updated
+ * @apiParam {String} name Updated name of the student.
+ * @apiParam {String} department Updated department of the student.
+ * @apiParam {Number} cgpa Updated CGPA of the 
  *
  * @apiSuccess {Object} updatedRecord Information of the updated student record.  */
 
@@ -318,6 +330,8 @@ router.put("/:rollno", [
  * @api {delete} /api/student/:rollno Delete a Student from records
  * @apiName DeleteStudent
  * @apiGroup Student
+ * 
+ * @apiSampleRequest https://gauravano-placement-drive-backend.glitch.me/api/student/:rollno
  *
  * @apiParam {Number} rollno Roll number of the student.
  *

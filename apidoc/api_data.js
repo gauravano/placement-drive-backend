@@ -161,6 +161,11 @@ define({ "api": [
     "type": "get",
     "url": "/api/student/:rollno",
     "title": "Request Student information",
+    "sampleRequest": [
+      {
+        "url": "https://gauravano-placement-drive-backend.glitch.me/api/student/:rollno"
+      }
+    ],
     "name": "GetStudent",
     "group": "Student",
     "parameter": {
@@ -199,6 +204,11 @@ define({ "api": [
     "title": "Add a Student",
     "name": "PostStudent",
     "group": "Student",
+    "sampleRequest": [
+      {
+        "url": "https://gauravano-placement-drive-backend.glitch.me/api/student/"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -256,6 +266,11 @@ define({ "api": [
     "title": "Register a Student for placement drive",
     "name": "RegisterStudent",
     "group": "Student",
+    "sampleRequest": [
+      {
+        "url": "https://gauravano-placement-drive-backend.glitch.me/api/student/register"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -299,6 +314,11 @@ define({ "api": [
     "title": "Unregister a Student for placement drive",
     "name": "UnregisterStudent",
     "group": "Student",
+    "sampleRequest": [
+      {
+        "url": "https://gauravano-placement-drive-backend.glitch.me/api/student/unregister"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -342,6 +362,11 @@ define({ "api": [
     "title": "Edit a student record",
     "name": "UpdateStudent",
     "group": "Student",
+    "sampleRequest": [
+      {
+        "url": "https://gauravano-placement-drive-backend.glitch.me/api/student/:rollno"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -351,6 +376,27 @@ define({ "api": [
             "optional": false,
             "field": "rollno",
             "description": "<p>Roll number of the student.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Updated name of the student.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "department",
+            "description": "<p>Updated department of the student.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "cgpa",
+            "description": "<p>Updated CGPA of the student</p>"
           }
         ]
       }
