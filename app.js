@@ -1,13 +1,17 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
-const morgan = require('morgan');
+// const morgan = require('morgan');
+// app.use(morgan('combined')); // For logging the requests in the terminal
+
+var logger = require("./logger");
+
+logger.debug("Overriding 'Express' logger");
+app.use(require('morgan')({ "stream": logger.stream }));
 
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const expressValidator = require('express-validator');
-
-app.use(morgan('combined')); // For logging the requests in the terminal
 
 mongoose.connect(
   process.env.MONGO_URI, {
@@ -50,4 +54,4 @@ app.use((error, req, res, next) => {
     });
 });
 
-module.exports = app;
+exports = module.exports = app;

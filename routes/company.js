@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
+var logger = require('../logger');
 
 const Company = require('../models/company');
 const Registration = require('../models/registration');
@@ -10,6 +11,7 @@ router.get("/:companyName", [
 ] ,(req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      logger.error("Bad request", errors);  
       return res.status(400).json({ errors: errors.array() });
     }
 
@@ -17,15 +19,19 @@ router.get("/:companyName", [
       .exec()
       .then(company => {
         if (!company) {
+          logger.warn("Company doesn't exist");
           return res.status(404).json({
             message: "Company not found"
           });
         }
+        logger.verbose("Company created successfully", company);
         res.status(200).json({
+          message: "Company created successfully!",  
           company: company
         });
       })
       .catch(err => {
+        logger.error("Error caught", err);
         res.status(500).json({
           error: err
         });
@@ -37,6 +43,7 @@ router.post("/", [
     check('name').custom(value => {
       return Company.findOne({name: {'$regex': value,$options:'i'}}).then(company => {
         if (company) {
+          logger.info("Company with same name already exists");
           return Promise.reject('Company with same name already exists!');
         }
       });
@@ -48,7 +55,8 @@ router.post("/", [
     // Finds the validation errors in this request and wraps them in an object with handy functions
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+        logger.error("Bad request", errors);
+        return res.status(400).json({ errors: errors.array() });
     }
 
     const company = new Company({
@@ -59,14 +67,14 @@ router.post("/", [
     company
       .save()
       .then(result => {
-        console.log(result);
+        logger.verbose("Comopany registered successfully", result);
         res.status(201).json({
           message: "Company registered for the placement drive!",
           createdCompany: result
         });
       })
       .catch(err => {
-        console.log(err);
+        logger.error("Error caught", err);
         res.status(500).json({
           error: err
         });
@@ -78,15 +86,18 @@ router.delete("/:name", [
 ] ,(req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        logger.error("Bad request", errors);
       return res.status(400).json({ errors: errors.array() });
     }
     const companyName = req.params.name;
     Company.findOneAndDelete({ name: {'$regex': companyName,$options:'i'}}, (err, deletedCompany) => {
         if(err){
+                logger.error("Bad request", err);
                 res.status(400).json({
                 error: err
             });
         }else if(deletedCompany == null){
+            logger.warn("Company not found", deletedCompany);
             res.status(404).json({
                 error: `Company by name ${companyName} not found!`
             })
@@ -95,10 +106,12 @@ router.delete("/:name", [
                 entries.map(entry => {
                     Registration.deleteMany({companyName: {'$regex': companyName,$options:'i'}}, (err, result) => {
                         if(err){
+                            logger.error("Bad request", err);
                             res.status(400).json({
                                 error: err
                             })
                         }else{            
+                            logger.verbose("Company successfully deleted", deletedCompany);
                             res.status(200).json({        
                                 message: "Company successfully unregistered and related registrations also deleted!",
                                 deletedCompany: deletedCompany
