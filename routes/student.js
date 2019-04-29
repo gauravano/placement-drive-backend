@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
+const winston = require('winston');
 
 const Student = require('../models/student');
 const Registration = require('../models/registration');
@@ -11,6 +12,7 @@ router.get("/:rollno", [
 ] ,(req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      winston.error("Bad request", errors.array());
       return res.status(400).json({ errors: errors.array() });
     }
   

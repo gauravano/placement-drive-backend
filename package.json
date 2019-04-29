@@ -23,7 +23,8 @@
     "express-validator": "^5.3.1",
     "httpclient": "^0.1.0",
     "mongoose": "^5.5.4",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.11"

@@ -7,12 +7,11 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const expressValidator = require('express-validator');
 
-app.use(morgan('dev')); // For logging the requests in the terminal
+app.use(morgan('combined')); // For logging the requests in the terminal
 
 mongoose.connect(
-  process.env.MONGO_URI,
-  {
-    useMongoClient: true
+  process.env.MONGO_URI, {
+     useNewUrlParser: true 
   }
 );
 
